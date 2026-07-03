@@ -1,0 +1,9 @@
+{
+  "name": "email-validator-app",
+  "version": "1.0.0",
+  "description": "Scaffolding for eval task 04 — reuse existing code",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

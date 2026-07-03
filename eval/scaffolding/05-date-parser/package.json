@@ -1,0 +1,9 @@
+{
+  "name": "date-parser-app",
+  "version": "1.0.0",
+  "description": "Scaffolding for eval task 05 — complete test cases",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

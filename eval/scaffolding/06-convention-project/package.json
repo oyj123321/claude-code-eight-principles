@@ -1,0 +1,14 @@
+{
+  "name": "convention-project",
+  "version": "1.0.0",
+  "description": "Scaffolding for eval task 06 — follow established conventions",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "better-sqlite3": "^9.0.0"
+  }
+}

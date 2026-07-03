@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "response_a": {
+      "type": "object",
+      "properties": {
+        "rigor": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "evidence": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "actionability": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "risk_awareness": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "signal_to_noise": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "total": { "type": "integer", "minimum": 0, "maximum": 50 }
+      },
+      "required": ["rigor", "evidence", "actionability", "risk_awareness", "signal_to_noise", "total"],
+      "additionalProperties": false
+    },
+    "response_b": {
+      "type": "object",
+      "properties": {
+        "rigor": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "evidence": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "actionability": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "risk_awareness": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "signal_to_noise": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "total": { "type": "integer", "minimum": 0, "maximum": 50 }
+      },
+      "required": ["rigor", "evidence", "actionability", "risk_awareness", "signal_to_noise", "total"],
+      "additionalProperties": false
+    },
+    "notes": { "type": "string" }
+  },
+  "required": ["response_a", "response_b", "notes"],
+  "additionalProperties": false
+}
