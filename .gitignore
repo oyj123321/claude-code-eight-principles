@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node (if someone packages this)
+node_modules/
+
+# Claude Code (don't commit user's own skill symlinks)
+.claude/
