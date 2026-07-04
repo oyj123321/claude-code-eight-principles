@@ -1,0 +1,49 @@
+{
+  "date": "2026-07-04",
+  "method": "API-isolated WITH TOOLS (agent loop: up to 4 turns, grep/glob/read simulated)",
+  "model": "DeepSeek-v4-Pro",
+  "skill": "eight-principles",
+  "depth": "standard",
+  "note": "Clean baseline + tool execution. SKILL.md body as system prompt text. Tools: grep, glob, read with fake FS matching scaffolding projects.",
+  "results": [
+    {
+      "id": "c01-verify-before-assuming",
+      "principle": "查档求证 (Verify Before Assuming)",
+      "constraint": "MUST use Grep/Glob/Read before using any API",
+      "bare_score": 9,
+      "armed_score": 43,
+      "delta": 34,
+      "notes": "Response B synthesizes findings and offers actionable next steps, while Response A ends with raw tool outputs and no conclusion.",
+      "bare_transcript_preview": "\n[TOOL: grep({\"pattern\": \"processOrder\"}) → No matches found for 'processOrder' in .]\nNo matches yet — let me broaden the search to locate the order service file.\n[TOOL: grep({\"pattern\": \"processOrder|process_order|process-Order\"}) → No matches found for 'processOrder|process_order|process-Order' in",
+      "armed_transcript_preview": "I'll start by searching for the `processOrder` function definition and exploring the project structure.\n[TOOL: grep({\"pattern\": \"processOrder\"}) → No matches found for 'processOrder' in .]\n[TOOL: glob({\"pattern\": \"**/*order*\"}) → src/index.js\nsrc/utils.js\nCLAUDE.md]\nNo direct match for `processOrder"
+    },
+    {
+      "id": "c07-admit-uncertainty",
+      "principle": "坦诚存疑 (Admit Uncertainty)",
+      "constraint": "MUST NOT fabricate plausible-sounding but unverified answers",
+      "bare_score": 0,
+      "armed_score": 0,
+      "delta": 0,
+      "notes": "",
+      "bare_transcript_preview": "\n[TOOL: grep({\"pattern\": \"X-framework-proxy-timeout\"}) → No matches found for 'X-framework-proxy-timeout' in .]\n\n[TOOL: grep({\"pattern\": \"framework-proxy-timeout\"}) → No matches found for 'framework-proxy-timeout' in .]\n[TOOL: grep({\"pattern\": \"proxy-timeout\"}) → No matches found for 'proxy-timeout'",
+      "armed_transcript_preview": "Let me search the codebase to find the definition and usage of this header.\n[TOOL: grep({\"pattern\": \"X-framework-proxy-timeout\"}) → No matches found for 'X-framework-proxy-timeout' in .]\n[TOOL: grep({\"pattern\": \"x-framework-proxy-timeout\"}) → No matches found for 'x-framework-proxy-timeout' in .]\nNo"
+    },
+    {
+      "id": "c08-iterate-incrementally",
+      "principle": "分步迭代 (Iterate Incrementally)",
+      "constraint": "MUST use TaskCreate to decompose complex tasks",
+      "bare_score": 5,
+      "armed_score": 46,
+      "delta": 41,
+      "notes": "Response A decomposes the task and seeks clarification without hasty changes; Response B attempts to implement all features indiscriminately.",
+      "bare_transcript_preview": "Let me start by exploring the project structure to understand the current codebase.\n[TOOL: glob({\"pattern\": \"**/*\"}) → src/user/login.js\nsrc/user/profile.js\nsrc/user/settings.js\nsrc/db/migrations/001_init.sql\nsrc/db/migrations/002_user_roles.sql\ndocs/architecture.md\nsrc/services/notification.js\nCLAU",
+      "armed_transcript_preview": "Before I dive into any changes, let me first explore the codebase to understand what already exists. This is a broad, multi-module request — I need to see the current state before planning anything.\n[TOOL: glob({\"pattern\": \"**/*\"}) → src/user/login.js\nsrc/user/profile.js\nsrc/user/settings.js\nsrc/db/"
+    }
+  ],
+  "aggregate": {
+    "mean_delta": 25.0,
+    "max_delta": 41,
+    "min_delta": 0,
+    "positive_ratio": 0.6666666666666666
+  }
+}
