@@ -1,8 +1,17 @@
 # Scoring Specification
 
-## The 3 Dimensions
+## Two-Level Scoring
 
-skill-eval MVP uses 3 independent dimensions. They are NOT combined into a single composite score — each stands alone. The user reads all three and makes their own judgment.
+skill-eval scores are organized at two levels:
+
+1. **Cross-track** (applies to ALL skills): `structural` + `cost`
+2. **Per-track** (applies only to skills that match that track): track-specific dimensions
+
+Dimensions are NOT combined into a single composite. The user reads all applicable dimensions and makes their own judgment.
+
+---
+
+## Cross-track Dimensions
 
 ### Dimension 1: `structural` (L1 → 0–1 scale)
 
@@ -76,6 +85,75 @@ strong_positive_ratio = count(Δ > 5) / total_constraints  // >5/50 = clearly po
 
 ---
 
+## Per-track Dimensions
+
+Each track has its own scoring dimensions. Only dimensions from the skill's assigned tracks are computed and reported.
+
+### Track A — Behavioral (Track A)
+
+See `layers/behavioral.md` for the full protocol.
+
+| Dimension | Scale | What it measures |
+|-----------|-------|------------------|
+| `behavioral_delta` | per-constraint Δ list, 0–50 judge scale | With vs without skill: quality change on each behavioral constraint |
+| `mean_delta` | -50 to +50 | Average behavioral lift across all constraints |
+| `positive_ratio` | 0–100% | Fraction of constraints that improved |
+
+### Track B — Output Artifact (Track B)
+
+See `layers/track-output.md` for the full protocol.
+
+| Dimension | Scale | What it measures |
+|-----------|-------|------------------|
+| `artifact_structure` | 0–10 | Information architecture, logical flow |
+| `artifact_visual_quality` | 0–10 | Layout, spacing, visual hierarchy |
+| `artifact_completeness` | 0–10 | Nothing critical missing |
+| `artifact_usability` | 0–10 | Receiver can use immediately |
+| `artifact_professionalism` | 0–10 | Matches domain professional standards |
+
+**Status: 📋 Designed, not implemented.**
+
+### Track C — Format Compliance (Track C)
+
+See `layers/track-format.md` for the full protocol.
+
+| Dimension | Scale | What it measures |
+|-----------|-------|------------------|
+| `format_adherence` | 0–100% | % of responses that pass automated format checks |
+| `format_consistency` | std deviation | Variance in adherence across multiple runs |
+| `content_quality_loss` | 0–10 | How much information was lost in formatting (0 = none) |
+
+**Status: 📋 Designed, not implemented.**
+
+### Track D — Tool Correctness (Track D)
+
+See `layers/track-tool.md` for the full protocol.
+
+| Dimension | Scale | What it measures |
+|-----------|-------|------------------|
+| `tool_success_rate` | 0–100% | % of happy-path tests that pass |
+| `tool_edge_handling` | 0–100% | % of edge cases handled without crashing |
+| `tool_error_handling` | 0–100% | % of error cases that fail cleanly |
+| `tool_value_add` | minimal/moderate/significant | Does the skill improve over running the tool directly? |
+
+**Status: 📋 Designed, not implemented.**
+
+### Track E — Knowledge Accuracy (Track E)
+
+See `layers/track-knowledge.md` for the full protocol.
+
+| Dimension | Scale | What it measures |
+|-----------|-------|------------------|
+| `knowledge_accuracy` | 0–10 | Every claim matches reference document |
+| `knowledge_completeness` | 0–10 | All relevant reference content surfaced |
+| `knowledge_source_traceability` | 0–10 | Claims backed by specific file/section citations |
+| `knowledge_confidence` | 0–10 | Well-calibrated: doesn't over/underclaim |
+| `knowledge_synthesis` | 0–10 | Synthesized across files, not copy-pasted |
+
+**Status: 📋 Designed, not implemented.**
+
+---
+
 ## Report Template
 
 ```markdown
@@ -83,7 +161,17 @@ strong_positive_ratio = count(Δ > 5) / total_constraints  // >5/50 = clearly po
 
 **Date**: {date}
 **Depth**: {depth}
-**Evaluator**: skill-eval v0.1.0
+**Evaluator**: skill-eval v0.3.0
+
+## L0: Skill Classification
+
+| Field | Value |
+|-------|-------|
+| Primary track | {A/B/C/D/E} |
+| All tracks | [{tracks}] |
+| Track implementation status | {implemented / designed / unavailable} |
+
+{If track is unimplemented: "⚠️ This skill is classified as Track {X}, which is designed but not yet implemented. Only L1 structural evaluation is available."}
 
 ## L1: Structural Compliance
 
@@ -96,17 +184,22 @@ strong_positive_ratio = count(Δ > 5) / total_constraints  // >5/50 = clearly po
 
 {Violation details if any}
 
-## L2: Behavioral Delta
+## L2: Track Evaluation — {Track Name}
 
+{Track-specific results section. Format varies by track.}
+
+### Track A (Behavioral) — example:
 {mean_delta_summary}
 
 | Constraint | Bare Score | Armed Score | Δ | Verdict |
 |------------|-----------|-------------|---|---------|
 | {c01}: {text} | {bare} | {armed} | {delta} | {+/-} |
-| ... | ... | ... | ... | ... |
 
-**Top improvements**: {list of constraints with highest Δ}
-**Regressions**: {list of constraints with negative Δ, or "None"}
+### Track B (Output) — example:
+| Dimension | Bare | Armed | Δ |
+|-----------|------|-------|---|
+| Structure | {b} | {a} | {d} |
+...
 
 ## Cost Analysis
 
@@ -114,14 +207,13 @@ strong_positive_ratio = count(Δ > 5) / total_constraints  // >5/50 = clearly po
 |--------|-------|--------|
 | SKILL.md tokens | {tokens} | {color} |
 | Budget share | {share}% | {color} |
-| Redundant calls | {calls}/task | {color} |
-| False positive rate | {rate}% | {color} |
+| Track-specific overhead | {overhead} | {color} |
 
 ## Verdict
 
-**{INSTALL / SKIP / FIX}**
+**{INSTALL / SKIP / FIX / CANNOT EVALUATE}**
 
-{One-paragraph explanation synthesizing all three dimensions}
+{One-paragraph explanation}
 ```
 
 ---
