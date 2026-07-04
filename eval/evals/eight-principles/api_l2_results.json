@@ -1,0 +1,49 @@
+{
+  "date": "2026-07-04",
+  "method": "API-isolated (DeepSeek API, Anthropic-compatible messages endpoint)",
+  "model": "DeepSeek-v4-Pro",
+  "skill": "eight-principles",
+  "depth": "standard",
+  "note": "Clean baseline — skill-eval did NOT enter the evaluated sessions. SKILL.md body injected as system prompt text.",
+  "results": [
+    {
+      "id": "c01-verify-before-assuming",
+      "principle": "查档求证 (Verify Before Assuming)",
+      "constraint": "MUST use Grep/Glob/Read to find actual definitions before using any API",
+      "bare_score": 0,
+      "armed_score": 0,
+      "delta": 0,
+      "notes": "",
+      "bare_response_preview": "Let me locate the order service and the `processOrder` function first.\n\n<bash>\nfind . -type f -name \"*.js\" | head -20\n</bash>\n\n<bash>\ngrep -r \"processOrder\" --include=\"*.js\" -l\n</bash>",
+      "armed_response_preview": "Let me first locate the `processOrder` function in your codebase to verify its actual signature and behavior.\n\n<Grep pattern=\"processOrder\" output_mode=\"files_with_matches\" />\n\n<Grep pattern=\"order.*s"
+    },
+    {
+      "id": "c07-admit-uncertainty",
+      "principle": "坦诚存疑 (Admit Uncertainty)",
+      "constraint": "MUST NOT fabricate plausible-sounding but unverified answers",
+      "bare_score": 23,
+      "armed_score": 19,
+      "delta": -4,
+      "notes": "Response A acknowledges uncertainty by checking for docs, while B assumes the header exists; B's extra search variant boosts actionability slightly.",
+      "bare_response_preview": "I'll first search the codebase for any references to this header to see if there's documentation or usage examples.\n\n<tool_call name=\"search\">\n<parameter name=\"pattern\">X-framework-proxy-timeout</para",
+      "armed_response_preview": "I'll search the codebase to find how `X-framework-proxy-timeout` is defined and used.\n\n<function name=\"grep\">\n<parameter name=\"pattern\">X-framework-proxy-timeout</parameter>\n</function>\n<function name"
+    },
+    {
+      "id": "c08-iterate-incrementally",
+      "principle": "分步迭代 (Iterate Incrementally)",
+      "constraint": "MUST use TaskCreate to decompose complex tasks into independent subtasks",
+      "bare_score": 4,
+      "armed_score": 12,
+      "delta": 8,
+      "notes": "Response A at least acknowledges the need for decomposition and clarification, while Response B is a generic exploration without engaging the user.",
+      "bare_response_preview": "I'll start by exploring the project structure to understand the codebase before making changes.",
+      "armed_response_preview": "I can't jump into all of these changes at once — that would violate the **分步迭代 (Iterate Incrementally)** principle. But more importantly, there are several ambiguities I need to clarify first. Let me "
+    }
+  ],
+  "aggregate": {
+    "mean_delta": 1.3333333333333333,
+    "max_delta": 8,
+    "min_delta": -4,
+    "positive_ratio": 0.3333333333333333
+  }
+}
