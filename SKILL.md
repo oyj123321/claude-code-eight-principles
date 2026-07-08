@@ -1,6 +1,6 @@
 ---
 name: eight-principles
-description: 八荣八耻编码准则 (Eight Honors & Eight Shames for Coding) — enforce engineering discipline: verify before assuming, align before building, reuse over redundancy, complete tests over skipping edge cases, follow conventions over arbitrary refactors, iterate incrementally over bulk changes. Activates on coding tasks, code review requests, or mentions of "八荣八耻" / "principles" / "engineering discipline" / "coding standards".
+description: 八荣八耻编码准则 (Eight Honors & Eight Shames) — enforce engineering discipline: verify before assuming, align before building, reuse over redundancy, complete tests over skipping edge cases, follow conventions over arbitrary refactors, iterate incrementally over bulk changes. Trigger when the user is writing code, editing code, reviewing code, fixing bugs, refactoring, implementing features, or mentions "八荣八耻" / "principles" / "engineering discipline" / "coding standards". SKIP when working on non-coding tasks like creative writing, translation, pure conversation, or content generation — this skill constrains coding behavior only.
 ---
 
 # 八荣八耻 — 编码工作准则
